@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo "Rendering Animation..."
-#python PlottingContest.py
+python PlottingContest.py
 echo "Animation Complete!"
