@@ -165,4 +165,4 @@ times = np.concatenate( (time_s1,time_s2,time_s3, time_s4, time_s5) )
 
 # Create and save animation
 a = FuncAnimation(fig, anim, frames=times, interval=20)
-a.save("CB_Kozai.avi", dpi=300, savefig_kwargs={'facecolor':(0.8,0.8,0.8)})
+a.save("Scipy2019_Rabago.avi", dpi=300, savefig_kwargs={'facecolor':(0.8,0.8,0.8)})
