@@ -20,7 +20,6 @@ def GetLTrack(inclination):
     sim = rebound.Simulation()
     sim.add(m=1)
     sim.add(m=1, a=2, e=0.5)    #Separation = 1
-    #Add test particle at 60 degree inclination, Omega=90 degrees
     sim.add(m=0, a=6, inc=i_o, Omega=omega_o)
     sim.move_to_com()
     
@@ -33,14 +32,18 @@ def GetLTrack(inclination):
         # plot the overall trajectory of L
         trajectory.append(L_Kozai)
         # Calculate and check precession angle
-        # Can be done with angle range [-pi, pi]?
+        # Stop the integration after the vector has "looped".
         prec_angle = np.arctan2(L_Kozai[1], L_Kozai[0])
         if prec_angle < 0 and len(inc_p) > 0 and inc_p[-1] > 0:
+            # Add the first data point to the list to close the "loop".
+            # This does not always happen with calculated data, but it produces a better plot.
             trajectory.append(trajectory[0])
             break
         inc_p.append(prec_angle)
     return np.array(trajectory).T
 
+# Project the 3D trajectories into 2D using a stereographic projection,
+# plus a mapping to a disk of radius R to keep reasonable sizing.
 def StereographicProjection(xyz, normalized=False):
     proj = [xyz[0]/(R-xyz[2]), xyz[1]/(R-xyz[2]), 0*xyz[2]]
     if normalized:
@@ -49,6 +52,7 @@ def StereographicProjection(xyz, normalized=False):
         proj = norm*(proj/mag)
     return proj
 
+# Generate 2D and 3D interpolated trajectories
 def CreateTrajectories(N=180):
     traj_animated = []
     traj_color = []
