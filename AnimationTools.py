@@ -11,7 +11,7 @@ def TrajColorMap(inclination):
     # Colormap for the coplanar region
     polar_angle = 90-np.fabs(90-inclination)
     if 90-np.fabs(90-inclination) < crit_inc:
-        return get_cmap('viridis')(0.3+polar_angle/crit_inc)
+        return get_cmap('viridis')(0.0+polar_angle/crit_inc)
     else:
         return get_cmap('plasma_r')(0.0+(polar_angle-crit_inc)/(90-crit_inc))
 
